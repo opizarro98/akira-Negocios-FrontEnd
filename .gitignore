@@ -1,0 +1,8 @@
+AKIRA-NEGOCIOS-FRONTEND/node_modules/
+AKIRA-NEGOCIOS-FRONTEND/dist/
+AKIRA-NEGOCIOS-FRONTEND/package-lock.json
+.vscode
+node_modules
+.angular
+dist
+package-lock.json
