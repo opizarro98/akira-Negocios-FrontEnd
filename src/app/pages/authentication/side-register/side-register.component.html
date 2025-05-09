@@ -9,51 +9,146 @@
             </a>
           </div>
 
-          <div class="row m-t-24 custom-row">
-            <div class="col-12 col-sm-6">
-              <button mat-stroked-button class="w-100">
-                <div class="d-flex align-items-center">
-                  <img src="/assets/images/svgs/google-icon.svg" alt="google" width="16" class="m-r-8" />
-                  Sign in with Google
-                </div>
-              </button>
+          <div class="or-border m-t-30">Ingresa tus datos</div>
+
+          <form class="m-t-30" [formGroup]="formResgisration">
+            <!--CEDULA-->
+            <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Cédula</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="identification" maxlength="10" placeholder="00000000000" required />
+              <mat-hint align="end">{{ formResgisration.get('identification')?.value?.length || 0 }} / 10</mat-hint>
+              <small
+                *ngIf="formResgisration.get('identification')?.hasError('required') && formResgisration.get('identification')?.touched"
+                style="color: red;">
+                Cédula es un campo obligatorio.
+              </small>
+            </mat-form-field>
+
+            <div class="row">
+              <!--NOMBRES-->
+              <div class="col-12 col-md-6">
+                <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Nombres</mat-label>
+                <mat-form-field appearance="outline" class="w-100" color="primary">
+                  <input matInput type="text" formControlName="names" placeholder="Nombres" required="true" />
+                  <small
+                    *ngIf="formResgisration.get('names')?.hasError('required') && formResgisration.get('names')?.touched"
+                    style="color: red;">
+                    Nombre es un campo obligatorio.
+                  </small>
+                </mat-form-field>
+              </div>
+              <!--APELLIDOS-->
+              <div class="col-12 col-md-6">
+                <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Apellidos</mat-label>
+                <mat-form-field appearance="outline" class="w-100" color="primary">
+                  <input matInput formControlName="lastnames" placeholder="Apellidos" required="true" />
+                  <small
+                    *ngIf="formResgisration.get('lastnames')?.hasError('required') && formResgisration.get('lastnames')?.touched"
+                    style="color: red;">
+                    Apellido es un campo obligatorio.
+                  </small>
+                </mat-form-field>
+              </div>
             </div>
-            <div class="col-12 col-sm-6">
-              <button mat-stroked-button class="w-100 d-flex align-items-center">
-                <div class="d-flex align-items-center">
-                  <img src="/assets/images/svgs/facebook-icon.svg" alt="facebook" width="40" class="m-r-4" />
-                  Sign in with FB
-                </div>
-              </button>
+
+            <div class="row">
+              <!--TELEFONO-->
+              <div class="col-12 col-md-6">
+                <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Teléfono</mat-label>
+                <mat-form-field appearance="outline" class="w-100" color="primary">
+                  <input matInput formControlName="landlinePhone" maxlength="10" placeholder="000000000000" />
+                </mat-form-field>
+              </div>
+              <!--CELULAR-->
+              <div class="col-12 col-md-6">
+                <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Celular</mat-label>
+                <mat-form-field appearance="outline" class="w-100" color="primary">
+                  <input matInput formControlName="mobilePhone" maxlength="10" placeholder="0900000000"
+                    required="true" />
+                  <small
+                    *ngIf="formResgisration.get('mobilePhone')?.hasError('required') && formResgisration.get('mobilePhone')?.touched"
+                    style="color: red;">
+                    Celular es un campo obligatorio.
+                  </small>
+                </mat-form-field>
+              </div>
             </div>
-          </div>
 
-          <div class="or-border m-t-30">or sign up with</div>
+            <div class="row">
+              <!--DIRECCION-->
+              <div class="col-12 col-md-6">
+                <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Dirección</mat-label>
+                <mat-form-field appearance="outline" class="w-100" color="primary">
+                  <input matInput type="tel" formControlName="address" placeholder="Dirección" required="true" />
+                  <small
+                    *ngIf="formResgisration.get('address')?.hasError('required') && formResgisration.get('address')?.touched"
+                    style="color: red;">
+                    Dirección es un campo obligatorio.
+                  </small>
+                </mat-form-field>
+              </div>
+              <!--FECHA DE NACIMEINTO-->
+              <div class="col-12 col-md-6">
+                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Fecha de nacimiento</mat-label>
+                <mat-form-field appearance="outline" class="w-100" color="primary">
+                  <input matInput [matDatepicker]="pickerbirthDate" formControlName="birthDate"
+                    placeholder="ejm: 01/01/1999" />
+                  <mat-datepicker-toggle matSuffix [for]="pickerbirthDate"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerbirthDate></mat-datepicker>
+                  <small
+                    *ngIf="formResgisration.get('birthDate')?.hasError('required') && formResgisration.get('birthDate')?.touched"
+                    style="color: red;">
+                    Fecha de nacimiento es un campo obligatorio.
+                  </small>
+                </mat-form-field>
+              </div>
+            </div>
 
-          <form class="m-t-30">
-            <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Name</mat-label>
+            <!--EMAIL-->
+            <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Correo electrónico</mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput />
-            </mat-form-field>
-            <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Email Adddress</mat-label>
-            <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput type="email" />
-            </mat-form-field>
-            <!-- password -->
-            <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Password</mat-label>
-            <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput type="password" />
+              <input matInput formControlName="email" type="email" placeholder="ejemplo@gmail.com" required="false" />
+              <small
+                *ngIf="formResgisration.get('email')?.hasError('required') && formResgisration.get('email')?.touched"
+                style="color: red;">
+                Correo electrónico es un campo obligatorio.
+              </small>
             </mat-form-field>
 
-            <a [routerLink]="['/']" mat-flat-button color="primary" class="w-100">
-              Sign Up
+            <div class="row">
+              <!-- USUARIO -->
+              <div class="col-12 col-md-6">
+                <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Usuario</mat-label>
+                <mat-form-field appearance="outline" class="w-100" color="primary">
+                  <input matInput formControlName="uname" placeholder="username" required="true" />
+                </mat-form-field>
+                <small
+                  *ngIf="formResgisration.get('uname')?.hasError('required') && formResgisration.get('uname')?.touched"
+                  style="color: red;">
+                  Usuario es un campo obligatorio.
+                </small>
+              </div>
+              <!-- CONTRASEÑA -->
+              <div class="col-12 col-md-6">
+                <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Contraseña</mat-label>
+                <mat-form-field appearance="outline" class="w-100" color="primary">
+                  <input matInput type="password" formControlName="password" placeholder="Contraseña" required="true" />
+                </mat-form-field>
+                <small
+                  *ngIf="formResgisration.get('password')?.hasError('required') && formResgisration.get('password')?.touched"
+                  style="color: red;">
+                  Contraseña es un campo obligatorio.
+                </small>
+              </div>
+            </div>
+            <a mat-flat-button color="primary" (click)="registration()" class="w-100">
+              Registrarse
             </a>
-            <!-- input -->
           </form>
-          <span class="d-block f-w-500 text-center m-t-24">Already have an Account?
+          <span class="d-block f-w-500 text-center m-t-24">Ya tienes una cuenta?
 
             <a [routerLink]="['/authentication/login']" class="text-decoration-none text-primary f-w-500 f-s-14">
-              Sign In</a>
+              Iniciar Sesión</a>
           </span>
         </mat-card-content>
       </mat-card>

@@ -5,29 +5,67 @@ import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/app/material.module';
+import { RegisterDto } from 'src/app/services/authservice/Registerdto';
+import { AuthService } from 'src/app/services/authservice/authService';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-side-register',
-  imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule],
+  imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './side-register.component.html',
 })
 export class AppSideRegisterComponent {
   options = this.settings.getOptions();
+  dataRegistration: RegisterDto;
 
-  constructor(private settings: CoreService, private router: Router) {}
+  constructor(private settings: CoreService, private router: Router, private authService: AuthService) { }
 
-  form = new FormGroup({
+  formResgisration = new FormGroup({
+    names: new FormControl('', [Validators.required]),
+    lastnames: new FormControl('', [Validators.required]),
+    identification: new FormControl('', [Validators.required]),
+    landlinePhone: new FormControl(''),
+    mobilePhone: new FormControl('', [Validators.required]),
+    birthDate: new FormControl('', [Validators.required]),
+    address: new FormControl('', [Validators.required]),
+    type: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     uname: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    email: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
   });
 
-  get f() {
-    return this.form.controls;
-  }
+  registration() {
+    const names = this.formResgisration.get('names')?.value?.trim() || '';
+    const nameParts = names.split(' ');
+    const lastnames = this.formResgisration.get('lastnames')?.value?.trim() || '';
+    const lastnameParts = lastnames.split(' ');
 
-  submit() {
-    // console.log(this.form.value);
-    this.router.navigate(['/']);
+    const registerDto: RegisterDto = {
+      username: this.formResgisration.get('uname')?.value || '',
+      password: this.formResgisration.get('password')?.value || '',
+      roleUser: 'CLIENT_PORTAL_USER',
+      identification: this.formResgisration.get('identification')?.value || '',
+      firstName: nameParts[0] || '',
+      middleName: nameParts.slice(1).join(' ') || '',
+      lastName: lastnameParts[0] || '',
+      secondLastName: lastnameParts.slice(1).join(' ') || '',
+      landlinePhone: this.formResgisration.get('landlinePhone')?.value || '',
+      mobilePhone: this.formResgisration.get('mobilePhone')?.value || '',
+      email: this.formResgisration.get('email')?.value || '',
+      birthDate: this.formResgisration.get('birthDate')?.value || '',
+      address: this.formResgisration.get('address')?.value || '',
+      type: 'CLIENTE',
+    }
+
+    this.authService.registreClient(registerDto).subscribe(
+      (response) => {
+        console.log('User registered successfully:', response);
+        this.router.navigate(['/']);
+      },
+      (error) => {
+        console.error('Error registering user:', error);
+      }
+    );
+
   }
 }
