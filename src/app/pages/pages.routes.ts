@@ -1,11 +1,16 @@
 import { Routes } from '@angular/router';
-import { Documentation } from './documentation/documentation';
-import { Crud } from './crud/crud';
-import { Empty } from './empty/empty';
+import { StarterComponent } from './starter/starter.component';
 
-export default [
-    { path: 'documentation', component: Documentation },
-    { path: 'crud', component: Crud },
-    { path: 'empty', component: Empty },
-    { path: '**', redirectTo: '/notfound' }
-] as Routes;
+export const PagesRoutes: Routes = [
+  {
+    path: '',
+    component: StarterComponent,
+    data: {
+      title: 'Starter Page',
+      urls: [
+        { title: 'Dashboard', url: '/dashboards/dashboard1' },
+        { title: 'Starter Page' },
+      ],
+    },
+  },
+];
