@@ -8,6 +8,7 @@ import { MaterialModule } from 'src/app/material.module';
 import { RegisterDto } from 'src/app/services/authservice/Registerdto';
 import { AuthService } from 'src/app/services/authservice/authService';
 import { CommonModule } from '@angular/common';
+import { PersonService } from 'src/app/services/person/personService';
 
 @Component({
   selector: 'app-side-register',
@@ -18,7 +19,7 @@ export class AppSideRegisterComponent {
   options = this.settings.getOptions();
   dataRegistration: RegisterDto;
 
-  constructor(private settings: CoreService, private router: Router, private authService: AuthService) { }
+  constructor(private settings: CoreService, private router: Router, private authService: AuthService, private personService: PersonService) { }
 
   formResgisration = new FormGroup({
     names: new FormControl('', [Validators.required]),
@@ -66,6 +67,23 @@ export class AppSideRegisterComponent {
         console.error('Error registering user:', error);
       }
     );
+  }
 
+  personExist() {
+    const identification = this.formResgisration.get('identification')?.value || '';
+    this.personService.personExist(identification).subscribe(
+      (response) => {
+        if (response) {
+          console.log('User already exists:', response);
+          this.formResgisration.get('identification')?.setErrors({ alreadyExists: true });
+        } else {
+          console.log('User not exist', response);
+          this.formResgisration.get('identification')?.setErrors(null);
+        }
+      },
+      (error) => {
+        console.error('Error checking user existence:', error);
+      }
+    );
   }
 }
