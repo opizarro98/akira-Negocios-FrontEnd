@@ -10,6 +10,28 @@ export const navItems: NavItem[] = [
     route: '/dashboard',
   },
   {
+    displayName: 'Empleados',
+    iconName: 'user-square',
+    route: '',
+    children: [
+      {
+        displayName: 'Gestion de empleados',
+        iconName: 'axis-x',
+        route: '/system/employee',
+      },
+    ],
+  },
+  {
+    displayName: 'Badge',
+    iconName: 'archive',
+    route: '/ui-components/badge',
+  },
+  {
+    displayName: 'Badge',
+    iconName: 'archive',
+    route: '/ui-components/badge',
+  },
+  {
     navCap: 'Ui Components',
   },
   {

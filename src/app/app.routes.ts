@@ -29,6 +29,13 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./pages/extra/extra.routes').then((m) => m.ExtraRoutes),
       },
+      {
+        path: 'system',
+        loadChildren: () =>
+          import('./pages/system/system.component.routes').then(
+            (m) => m.SystemComponentsRoutes
+          ),
+      },
     ],
   },
   {
