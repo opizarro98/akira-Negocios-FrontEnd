@@ -10,7 +10,7 @@ export const navItems: NavItem[] = [
     route: '/dashboard',
   },
   {
-    displayName: 'Empleados',
+    displayName: 'Personas',
     iconName: 'user-square',
     route: '',
     children: [
@@ -19,17 +19,37 @@ export const navItems: NavItem[] = [
         iconName: 'axis-x',
         route: '/system/employee',
       },
+      {
+        displayName: 'Gestion de proveedores',
+        iconName: 'axis-x',
+        route: '/system/supplier',
+      },
+      {
+        displayName: 'Gestion de clientes',
+        iconName: 'axis-x',
+        route: '/system/clientes',
+      },
     ],
   },
   {
-    displayName: 'Badge',
-    iconName: 'archive',
-    route: '/ui-components/badge',
+    navCap: 'Sistema',
   },
   {
-    displayName: 'Badge',
-    iconName: 'archive',
-    route: '/ui-components/badge',
+    displayName: 'Roles',
+    iconName: 'user-square',
+    route: '',
+    children: [
+      {
+        displayName: 'Roles del sistema',
+        iconName: 'axis-x',
+        route: '/system/accessrole',
+      },
+      {
+        displayName: 'Roles de Empleados',
+        iconName: 'axis-x',
+        route: '/system/employeerole',
+      },
+    ],
   },
   {
     navCap: 'Ui Components',

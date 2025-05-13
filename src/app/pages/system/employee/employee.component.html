@@ -1,6 +1,161 @@
 <mat-card class="cardWithShadow">
     <mat-card-content>
-        <mat-card-title>Sample Page</mat-card-title>
-        <mat-card-subtitle>This is test page</mat-card-subtitle>
+        <mat-tab-group>
+            <mat-tab label="Registro de Empleados">
+                <mat-card-content class="b-t-1">
+                    <form class="m-t-30" [formGroup]="formResgisrationEmployee">
+                        <!--CEDULA-->
+                        <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Cédula</mat-label>
+                        <mat-form-field appearance="outline" class="w-100" color="primary">
+                            <input matInput formControlName="identification" maxlength="10" placeholder="00000000000"
+                                required (blur)="personExist()" />
+                            <mat-hint align="end">{{ formResgisrationEmployee.get('identification')?.value?.length || 0
+                                }} /
+                                10</mat-hint>
+                            <small
+                                *ngIf="formResgisrationEmployee.get('identification')?.hasError('required') && formResgisrationEmployee.get('identification')?.touched"
+                                style="color: red;">
+                                Campo obligatorio.
+                            </small>
+                        </mat-form-field>
+
+                        <div class="row">
+                            <!--NOMBRES-->
+                            <div class="col-12 col-md-6">
+                                <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Nombres</mat-label>
+                                <mat-form-field appearance="outline" class="w-100" color="primary">
+                                    <input matInput type="text" formControlName="names" placeholder="Nombres"
+                                        required="true" />
+                                    <small
+                                        *ngIf="formResgisrationEmployee.get('names')?.hasError('required') && formResgisrationEmployee.get('names')?.touched"
+                                        style="color: red;">
+                                        Campo obligatorio.
+                                    </small>
+                                </mat-form-field>
+                            </div>
+                            <!--APELLIDOS-->
+                            <div class="col-12 col-md-6">
+                                <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Apellidos</mat-label>
+                                <mat-form-field appearance="outline" class="w-100" color="primary">
+                                    <input matInput formControlName="lastnames" placeholder="Apellidos"
+                                        required="true" />
+                                    <small
+                                        *ngIf="formResgisrationEmployee.get('lastnames')?.hasError('required') && formResgisrationEmployee.get('lastnames')?.touched"
+                                        style="color: red;">
+                                        Campo obligatorio.
+                                    </small>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!--TELEFONO-->
+                            <div class="col-12 col-md-6">
+                                <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Teléfono</mat-label>
+                                <mat-form-field appearance="outline" class="w-100" color="primary">
+                                    <input matInput formControlName="landlinePhone" maxlength="10"
+                                        placeholder="000000000000" />
+                                </mat-form-field>
+                            </div>
+                            <!--CELULAR-->
+                            <div class="col-12 col-md-6">
+                                <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Celular</mat-label>
+                                <mat-form-field appearance="outline" class="w-100" color="primary">
+                                    <input matInput formControlName="mobilePhone" maxlength="10"
+                                        placeholder="0900000000" required="true" />
+                                    <small
+                                        *ngIf="formResgisrationEmployee.get('mobilePhone')?.hasError('required') && formResgisrationEmployee.get('mobilePhone')?.touched"
+                                        style="color: red;">
+                                        Campo obligatorio.
+                                    </small>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!--DIRECCION-->
+                            <div class="col-12 col-md-6">
+                                <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Dirección</mat-label>
+                                <mat-form-field appearance="outline" class="w-100" color="primary">
+                                    <input matInput type="tel" formControlName="address" placeholder="Dirección"
+                                        required="true" />
+                                    <small
+                                        *ngIf="formResgisrationEmployee.get('address')?.hasError('required') && formResgisrationEmployee.get('address')?.touched"
+                                        style="color: red;">
+                                        Campo obligatorio.
+                                    </small>
+                                </mat-form-field>
+                            </div>
+                            <!--FECHA DE NACIMEINTO-->
+                            <div class="col-12 col-md-6">
+                                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Fecha de
+                                    nacimiento</mat-label>
+                                <mat-form-field appearance="outline" class="w-100" color="primary">
+                                    <input matInput [matDatepicker]="pickerbirthDate" formControlName="birthDate"
+                                        placeholder="ejm: 01/01/1999" />
+                                    <mat-datepicker-toggle matSuffix [for]="pickerbirthDate"></mat-datepicker-toggle>
+                                    <mat-datepicker #pickerbirthDate></mat-datepicker>
+                                    <small
+                                        *ngIf="formResgisrationEmployee.get('birthDate')?.hasError('required') && formResgisrationEmployee.get('birthDate')?.touched"
+                                        style="color: red;">
+                                        Campo obligatorio.
+                                    </small>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <!--EMAIL-->
+                        <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Correo electrónico</mat-label>
+                        <mat-form-field appearance="outline" class="w-100" color="primary">
+                            <input matInput formControlName="email" type="email" placeholder="ejemplo@gmail.com"
+                                required="false" />
+                            <small
+                                *ngIf="formResgisrationEmployee.get('email')?.hasError('required') && formResgisrationEmployee.get('email')?.touched"
+                                style="color: red;">
+                                Campo obligatorio.
+                            </small>
+                        </mat-form-field>
+
+                        <div class="row">
+                            <!-- USUARIO -->
+                            <div class="col-12 col-md-6">
+                                <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Usuario</mat-label>
+                                <mat-form-field appearance="outline" class="w-100" color="primary">
+                                    <input matInput formControlName="uname" placeholder="username" required="true" />
+                                    <small
+                                        *ngIf="formResgisrationEmployee.get('uname')?.hasError('required') && formResgisrationEmployee.get('uname')?.touched"
+                                        style="color: red;">
+                                        Campo obligatorio.
+                                    </small>
+                                </mat-form-field>
+                            </div>
+                            <!-- CONTRASEÑA -->
+                            <div class="col-12 col-md-6">
+                                <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Contraseña</mat-label>
+                                <mat-form-field appearance="outline" class="w-100" color="primary">
+                                    <input matInput type="password" formControlName="password" placeholder="Contraseña"
+                                        required="true" />
+                                    <small
+                                        *ngIf="formResgisrationEmployee.get('password')?.hasError('required') && formResgisrationEmployee.get('password')?.touched"
+                                        style="color: red;">
+                                        Campo obligatorio.
+                                    </small>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <a mat-flat-button color="primary" class="w-100">
+                            Registrarse
+                        </a>
+                    </form>
+                </mat-card-content>
+            </mat-tab>
+
+
+
+
+
+            <mat-tab label="Lista de Empleados"> Content 2 </mat-tab>
+            <mat-tab label="Third"> Content 3 </mat-tab>
+        </mat-tab-group>
     </mat-card-content>
 </mat-card>

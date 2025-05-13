@@ -39,11 +39,11 @@ export class AppSideRegisterComponent {
   });
 
   registration() {
-    if (this.formResgisration.invalid) {
+    /*if (this.formResgisration.invalid) {
       this.formResgisration.markAllAsTouched();
       this.notificationService.error('Llene todos los campos del formulario')
-      return; 
-    }
+      return;
+    }*/
 
     const names = this.formResgisration.get('names')?.value?.trim() || '';
     const nameParts = names.split(' ');
@@ -70,9 +70,11 @@ export class AppSideRegisterComponent {
     this.authService.registreClient(registerDto).subscribe(
       (response) => {
         console.log('User registered successfully:', response);
+        this.notificationService.success('Usuario registrado correctamente');
         this.router.navigate(['/']);
       },
       (error) => {
+        this.notificationService.error('Error al registrar el usuario');
         console.error('Error registering user:', error);
       }
     );
