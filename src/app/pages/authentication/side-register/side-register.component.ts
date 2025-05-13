@@ -5,21 +5,24 @@ import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/app/material.module';
-import { RegisterDto } from 'src/app/services/authservice/Registerdto';
-import { AuthService } from 'src/app/services/authservice/authService';
 import { CommonModule } from '@angular/common';
+import { RegisterDto } from 'src/app/services/authservice/registerdto';
+import { AuthService } from 'src/app/services/authservice/authService';
 import { PersonService } from 'src/app/services/person/personService';
+import { CustomSnackbarComponent } from 'src/assets/alerts/custom-snackbar.component';
+import { MatIconModule } from '@angular/material/icon';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-side-register',
-  imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule, CommonModule, MatIconModule],
   templateUrl: './side-register.component.html',
 })
 export class AppSideRegisterComponent {
   options = this.settings.getOptions();
   dataRegistration: RegisterDto;
 
-  constructor(private settings: CoreService, private router: Router, private authService: AuthService, private personService: PersonService) { }
+  constructor(private settings: CoreService, private router: Router, private authService: AuthService, private personService: PersonService, private notificationService: NotificationService) { }
 
   formResgisration = new FormGroup({
     names: new FormControl('', [Validators.required]),
@@ -36,6 +39,12 @@ export class AppSideRegisterComponent {
   });
 
   registration() {
+    if (this.formResgisration.invalid) {
+      this.formResgisration.markAllAsTouched();
+      this.notificationService.error('Llene todos los campos del formulario')
+      return; 
+    }
+
     const names = this.formResgisration.get('names')?.value?.trim() || '';
     const nameParts = names.split(' ');
     const lastnames = this.formResgisration.get('lastnames')?.value?.trim() || '';
@@ -75,6 +84,7 @@ export class AppSideRegisterComponent {
       (response) => {
         if (response) {
           console.log('User already exists:', response);
+          this.notificationService.warn('La persona ya se encuentra registrada.');
           this.formResgisration.get('identification')?.setErrors({ alreadyExists: true });
         } else {
           console.log('User not exist', response);
@@ -86,4 +96,5 @@ export class AppSideRegisterComponent {
       }
     );
   }
+
 }

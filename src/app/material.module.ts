@@ -41,10 +41,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-import { AuthService } from './services/authservice/authService';
+import { CustomSnackbarComponent } from 'src/assets/alerts/custom-snackbar.component';
 
 @NgModule({
-  declarations: [],
   exports: [
     MatAutocompleteModule,
     MatCheckboxModule,
@@ -81,7 +80,7 @@ import { AuthService } from './services/authservice/authService';
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
-    MatNativeDateModule
+    MatNativeDateModule,
   ],
 })
 export class MaterialModule { }

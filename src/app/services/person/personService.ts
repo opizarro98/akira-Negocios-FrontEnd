@@ -1,35 +1,23 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { RegisterDto } from "./Registerdto";
 import { catchError, map, Observable, tap, throwError } from "rxjs";
-import { environment } from "src/ environments/environment";
-import { Logindto } from "./Logindto";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
-export class AuthService {
+export class PersonService {
     api: string;
     constructor(private http: HttpClient) {
         this.api = environment.SERVICE +
-            "auth/";
+            "personRest/";
     }
 
-    registreClient(cita: RegisterDto): Observable<any> {
-
-        return this.http.post<any>(`${this.api}register`, cita).pipe(
+    // Busca una persona por su identificacion: BOOLEAN
+    personExist(identification: string): Observable<any> {
+        return this.http.get<any>(`${this.api}personExistByIdentification/${identification}`).pipe(
             tap((response) => {
             }),
-            catchError(this.handleError)
-        );
-    }
-
-    login(credentials: Logindto): Observable<any> {
-        return this.http.post<any>(`${this.api}login`, credentials).pipe(
-            tap((userData) => {
-                console.log('Login successful:', userData);
-            }),
-            map((userData) => userData),
             catchError(this.handleError)
         );
     }
